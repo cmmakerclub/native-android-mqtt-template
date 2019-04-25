@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
     MqttAndroidClient mqttAndroidClient;
     final String serverUri = "tcp://mqtt.cmmc.io:1883";
     final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "CMMC/PLUG-002/$/command";
+    final String subscriptionTopic = "CMMC/PLUG-001/$/command";
 
-    final String publishTopic = "CMMC/PLUG-002/$/command";
+    final String publishTopic = "CMMC/PLUG-001/$/command";
     String publishMessage = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
