@@ -3,7 +3,6 @@ package com.cmmakerclub.nat.mqtt_template;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,74 +17,65 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MQTT_NAT";
-    Button mConnectButton, mOnButton, mOffButton;
-    TextView mTextView1;
 
-    MqttAndroidClient mqttAndroidClient;
-    final String serverUri = "tcp://mqtt.cmmc.io:1883";
-    final String clientId = "ExampleAndroidClient" + Math.random();
-    final String subscriptionTopic = "CMMC/DEMO/$/command";
-    final String publishTopic = "CMMC/DEMO/$/command";
+    public static final String serverUri = "tcp://mqtt.cmmc.io:1883";
+    public static final String clientId = "ExampleAndroidClient" + Math.random();
+    public static final String subscriptionTopic = "CMMC/DEMO/$/command";
+    public static final String publishTopic = "CMMC/DEMO/$/command";
+
+    private Button buttonConnect;
+    private Button buttonOn;
+    private Button buttonOff;
+    private TextView textViewStatus;
+
+    private MqttAndroidClient mqttAndroidClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mConnectButton = findViewById(R.id.button_connect);
-        mOnButton = findViewById(R.id.button_on);
-        mOffButton = findViewById(R.id.button_off);
-        mTextView1 = findViewById(R.id.myTextView1);
-        mTextView1.setText("Chiang Mai Maker Club");
+        buttonConnect = findViewById(R.id.buttonConnect);
+        buttonOn = findViewById(R.id.buttonOn);
+        buttonOff = findViewById(R.id.buttonOff);
+        textViewStatus = findViewById(R.id.textViewStatus);
+        textViewStatus.setText(getString(R.string.chiang_mai_maker_club));
 
-        mConnectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTextView1.setText("Button Clicked.");
-                mConnectButton.setEnabled(false);
-                mOnButton.setEnabled(true);
-                mOffButton.setEnabled(true);
-                setupMqttClient();
-            }
+        buttonConnect.setOnClickListener(view -> {
+            textViewStatus.setText(getString(R.string.status_button_clicked));
+            buttonConnect.setEnabled(false);
+            buttonOn.setEnabled(true);
+            buttonOff.setEnabled(true);
+            setupMqttClient();
         });
 
-        mOnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                publishMessage("ON");
-            }
-        });
+        buttonOn.setOnClickListener(view -> publishMessage(getString(R.string.status_on)));
 
-        mOffButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                publishMessage("OFF");
-            }
-        });
+        buttonOff.setOnClickListener(view -> publishMessage(getString(R.string.status_off)));
     }
 
     private void setupMqttClient() {
-        mqttAndroidClient = new MqttAndroidClient(getApplicationContext(), serverUri, clientId+Math.random());
+        mqttAndroidClient = new MqttAndroidClient(this, serverUri, clientId + Math.random());
         mqttAndroidClient.setCallback(new MqttCallbackExtended() {
             @Override
-            public void connectComplete(boolean reconnect, String serverURI) {
+            public void connectComplete(boolean reconnect, String serverUri) {
                 if (reconnect) {
-                    addToHistory("[CON] Reconnected to : " + serverURI);
+                    addToHistory(getString(R.string.status_reconnected_to, serverUri));
                 } else {
-                    addToHistory("[CON] Connected to: " + serverURI);
+                    addToHistory(getString(R.string.status_connected_to, serverUri));
                 }
                 subscribeToTopic();
             }
 
             @Override
             public void connectionLost(Throwable cause) {
-                addToHistory("The Connection was lost.");
+                addToHistory(getString(R.string.status_connection_lost));
             }
 
             @Override
-            public void messageArrived(String topic, MqttMessage message) throws Exception {
-                addToHistory("Incoming message: " + new String(message.getPayload()));
-                mTextView1.setText(topic + " => " + new String(message.getPayload()));
+            public void messageArrived(String topic, MqttMessage message) {
+                addToHistory(getString(R.string.status_incoming_message, new String(message.getPayload())));
+                textViewStatus.setText(getString(R.string.status_incoming_topic_and_message, topic, new String(message.getPayload())));
             }
 
             @Override
@@ -106,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addToHistory(String mainText) {
         Log.d(TAG, "[LOG:] addToHistory: " + mainText);
-        mTextView1.setText(mainText);
+        textViewStatus.setText(mainText);
     }
 
     public void subscribeToTopic() {
@@ -114,16 +104,16 @@ public class MainActivity extends AppCompatActivity {
             mqttAndroidClient.subscribe(subscriptionTopic, 0, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    addToHistory("Subscribed!");
+                    addToHistory(getString(R.string.status_subscribed));
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    addToHistory("Failed to subscribe");
+                    addToHistory(getString(R.string.status_failed_to_subscribe));
                 }
             });
         } catch (MqttException ex) {
-            System.err.println("Exception whilst subscribing");
+            Log.w(TAG, "Exception whilst subscribing");
             ex.printStackTrace();
         }
     }
@@ -133,15 +123,13 @@ public class MainActivity extends AppCompatActivity {
             MqttMessage message = new MqttMessage();
             message.setPayload(msg.getBytes());
             mqttAndroidClient.publish(publishTopic, message);
-            addToHistory("Message Published");
+            addToHistory(getString(R.string.status_message_published));
             if (!mqttAndroidClient.isConnected()) {
-                addToHistory(mqttAndroidClient.getBufferedMessageCount() + " messages in buffer.");
+                addToHistory(getString(R.string.status_messages_in_buffer, mqttAndroidClient.getBufferedMessageCount()));
             }
         } catch (MqttException e) {
-            System.err.println("Error Publishing: " + e.getMessage());
+            Log.w(TAG, "Error Publishing: " + e.getMessage());
             e.printStackTrace();
         }
     }
-
-
 }

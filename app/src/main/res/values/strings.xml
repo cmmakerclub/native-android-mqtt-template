@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">CMMC MQTT Template</string>
+
+    <string name="hello_from_cmmc">Hello from CMMC.</string>
+    <string name="chiang_mai_maker_club">Chiang Mai Maker Club</string>
+
+    <string name="connect">Connect</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+
+
+    <string name="status_on">ON</string>
+    <string name="status_off">OFF</string>
+    <string name="status_button_clicked">Button Clicked.</string>
+    <string name="status_subscribed">Subscribed!</string>
+    <string name="status_connection_lost">The Connection was lost.</string>
+    <string name="status_connected_to">[CON] Connected to: %1$s</string>
+    <string name="status_reconnected_to">[CON] Reconnected to : %1$s</string>
+    <string name="status_incoming_message">Incoming message: %1$s</string>
+    <string name="status_incoming_topic_and_message">%1$s => %2$s</string>
+    <string name="status_failed_to_subscribe">Failed to subscribe</string>
+    <string name="status_message_published">Message Published</string>
+    <string name="status_messages_in_buffer">%1$d messages in buffer.</string>
 </resources>
