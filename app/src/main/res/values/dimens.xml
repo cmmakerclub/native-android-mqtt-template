@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="logo_size">46dp</dimen>
+
+    <dimen name="margin_padding_small">16dp</dimen>
+    <dimen name="margin_padding">30dp</dimen>
+    <dimen name="margin_padding_large">60dp</dimen>
+
+    <dimen name="text_area_width">260dp</dimen>
+</resources>
