@@ -20,14 +20,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MQTT_NAT";
     Button mConnectButton, mOnButton, mOffButton;
     TextView mTextView1;
-
     MqttAndroidClient mqttAndroidClient;
     final String serverUri = "tcp://mqtt.cmmc.io:1883";
     final String clientId = "ExampleAndroidClient";
     final String subscriptionTopic = "CMMC/PLUG-001/$/command";
-
     final String publishTopic = "CMMC/PLUG-001/$/command";
     String publishMessage = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         mOnButton = findViewById(R.id.button_on);
         mOffButton = findViewById(R.id.button_off);
         mTextView1 = findViewById(R.id.myTextView1);
-        mTextView1.setText("Hello CMMC");
+        mTextView1.setText("Chiang Mai Maker Club");
 
         mConnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
