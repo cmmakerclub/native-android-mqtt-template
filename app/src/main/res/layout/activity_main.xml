@@ -4,51 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="81dp">
 
-    <TextView
-        android:layout_marginTop="300dp"
-        android:id="@+id/myTextView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toTopOf="@+id/button_on"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <Button
-        android:id="@+id/button_on"
+        android:id="@+id/button_connect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#BF5AEE0B"
-        android:enabled="false"
-        android:text="ON"
-        app:layout_constraintEnd_toStartOf="@+id/button_off"
-        app:layout_constraintStart_toEndOf="@+id/button_connect"
-        tools:layout_editor_absoluteY="591dp" />
+        android:layout_marginTop="60dp"
+        android:text="Connect"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:enabled="false"
         android:id="@+id/button_off"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="30dp"
         android:text="OFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="591dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_on"
+        app:layout_constraintStart_toEndOf="@+id/button_on"
+        app:layout_constraintTop_toTopOf="@+id/button_on"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button_connect"
+        android:enabled="false"
+        android:id="@+id/button_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connect"
-        app:layout_constraintEnd_toStartOf="@+id/button_off"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="591dp" />
+        android:layout_marginTop="60dp"
+        android:text="ON"
+        app:layout_constraintStart_toStartOf="@+id/button_connect"
+        app:layout_constraintTop_toBottomOf="@+id/button_connect" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="Chiang Mai Maker Club"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Just Another Text View"
+        app:layout_constraintStart_toStartOf="@+id/button_on"
+        app:layout_constraintTop_toBottomOf="@+id/button_on" />
+
+    <TextView
+        android:id="@+id/myTextView1"
+        android:layout_width="250dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="60dp"
+        android:text="By signing up, I agree to Raze Galactic's Terms of Service, Privacy Policy, Refund Policy, and Accidental Vacuum Induced Asphyxiation Policy"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 </android.support.constraint.ConstraintLayout>

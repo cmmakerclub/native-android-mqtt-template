@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mConnectButton = findViewById(R.id.button_connect);
-        mConnectButton = findViewById(R.id.button_connect);
         mOnButton = findViewById(R.id.button_on);
         mOffButton = findViewById(R.id.button_off);
         mTextView1 = findViewById(R.id.myTextView1);
