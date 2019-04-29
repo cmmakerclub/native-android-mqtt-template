@@ -20,12 +20,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MQTT_NAT";
     Button mConnectButton, mOnButton, mOffButton;
     TextView mTextView1;
+
     MqttAndroidClient mqttAndroidClient;
     final String serverUri = "tcp://mqtt.cmmc.io:1883";
-    final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "CMMC/PLUG-001/$/command";
-    final String publishTopic = "CMMC/PLUG-001/$/command";
-    String publishMessage = "";
+    final String clientId = "ExampleAndroidClient" + Math.random();
+    final String subscriptionTopic = "CMMC/DEMO/$/command";
+    final String publishTopic = "CMMC/DEMO/$/command";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +52,14 @@ public class MainActivity extends AppCompatActivity {
         mOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                publishMessage = "ON";
-                publishMessage();
+                publishMessage("ON");
             }
         });
 
         mOffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                publishMessage = "OFF";
-                publishMessage();
+                publishMessage("OFF");
             }
         });
     }
@@ -130,10 +128,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void publishMessage() {
+    public void publishMessage(String msg) {
         try {
             MqttMessage message = new MqttMessage();
-            message.setPayload(publishMessage.getBytes());
+            message.setPayload(msg.getBytes());
             mqttAndroidClient.publish(publishTopic, message);
             addToHistory("Message Published");
             if (!mqttAndroidClient.isConnected()) {
